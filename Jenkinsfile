@@ -24,5 +24,12 @@ environment {
                 sh 'docker build -t ${ACR_REGISTRY}/${ACR_REPOSITORY}/${BUILD_NUMBER} .'
             }
         }
-    }
+     
+     stage('Push_Docker_Image') {
+            steps {
+                sh 'docker login ${ACR_REGISTRY}'
+                sh 'docker push ${ACR_REGISTRY}/${ACR_REPOSITORY}/${BUILD_NUMBER}'
+            }
+        }
+ }
 }
