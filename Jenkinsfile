@@ -27,8 +27,13 @@ environment {
      
      stage('Push_Docker_Image') {
             steps {
-                sh 'docker login ${ACR_REGISTRY}'
-                sh 'docker push ${ACR_REGISTRY}/${ACR_REPOSITORY}/${BUILD_NUMBER}'
+               withCredentials([usernamePassword(credentialsId: 'acr_key', passwordVariable: 'passwd-id', usernameVariable: 'user-id','azur.io')]) {
+      sh 'docker login -u ${user-id} -p ${passwd-id} ${ACR_REGISTRY}'
+     sh 'docker push ${ACR_REGISTRY}/${ACR_REPOSITORY}/${BUILD_NUMBER}'
+}
+    
+
+               
             }
         }
  }
