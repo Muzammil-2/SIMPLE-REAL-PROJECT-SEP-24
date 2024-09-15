@@ -3,6 +3,11 @@ pipeline {
     tools {
   maven 'maven 3.8.4'
 }
+environment {
+  ACR_REGISTRY = "azure.io.realproject"
+  ACR_REPOSITORY = "helloworldapp"
+  buildNumber = "BUILD_NUMBER"
+}
     stages {
         stage('Get_Codes') {
             steps {
@@ -14,10 +19,10 @@ pipeline {
                 sh 'mvn clean package'
              }
         }
-        // stage('Deploy') {
-        //     steps {
-        //         echo 'Deploying....'
-        //     }
-        // }
+        stage('Build_Docker_Image') {
+            steps {
+                sh 'docker build -t ${ACR_REGISTRY}/${ACR_REPOSITORY}/${BUILD_NUMBER} .'
+            }
+        }
     }
 }
