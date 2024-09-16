@@ -28,7 +28,7 @@ stages {
      stage('Push_Docker_Image') {
             steps {
                withCredentials([usernamePassword(credentialsId: 'acr_key', passwordVariable: 'passwd-id', usernameVariable: 'user-id',url:'https://azurecr.io')]) {
-      sh 'docker login -u ${user-id} -p {passwd-id} ${ACR_REGISTRY}'
+      sh 'az acr login --name ${ACR_REGISTRY}'
      sh 'docker push ${ACR_REGISTRY}/${ACR_REPOSITORY}:${BUILD_NUMBER}'
 }
                }
