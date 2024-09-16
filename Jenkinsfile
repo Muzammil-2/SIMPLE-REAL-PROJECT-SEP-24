@@ -21,7 +21,7 @@ environment {
         }
         stage('Build_Docker_Image') {
             steps {
-                sh 'docker build -t ${ACR_REGISTRY}/${ACR_REPOSITORY}/${BUILD_NUMBER} .'
+                sh 'docker build -t ${ACR_REGISTRY}/${ACR_REPOSITORY}:${BUILD_NUMBER} .'
             }
         }
      
@@ -29,7 +29,7 @@ environment {
             steps {
                withCredentials([usernamePassword(credentialsId: 'acr_key', passwordVariable: 'passwd-id', usernameVariable: 'user-id',url:'https://azurecr.io')]) {
       sh 'docker login  ${ACR_REGISTRY}'
-     sh 'docker push ${ACR_REGISTRY}/${ACR_REPOSITORY}/${BUILD_NUMBER}'
+     sh 'docker push ${ACR_REGISTRY}/${ACR_REPOSITORY}:${BUILD_NUMBER}'
 }
                }
         }
