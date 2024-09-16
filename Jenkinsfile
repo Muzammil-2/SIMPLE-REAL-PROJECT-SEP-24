@@ -8,7 +8,7 @@ environment {
   ACR_REPOSITORY = "helloworldapp"
   buildNumber = "BUILD_NUMBER"
 }
-    stages {
+stages {
         stage('Get_Codes') {
             steps {
                 git branch: 'main', credentialsId: 'git_credentials', url: 'https://github.com/Muzammil-2/SIMPLE-REAL-PROJECT-SEP-24.git'
