@@ -27,8 +27,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    matchLabels:
-      app: hellowd
+    app: hellowd
   ports:
     - port: 80
       # By default and for convenience, the `targetPort` is set to
