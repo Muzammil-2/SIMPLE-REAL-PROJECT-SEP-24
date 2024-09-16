@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: hello-container
-        image: ${ACR_REGISTRY}/${ACR_REPOSITORY}:latest
+        image: realproject.azurecr.io/helloworldapp:latest
         ports:
         - containerPort: 80
 ---

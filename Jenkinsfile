@@ -36,7 +36,7 @@ stages {
  stage('Deployment_K8s') {
             steps {
             withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeconfig_aks', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-             sh "sed -i 's/${ACR_REPOSITORY}:latest/${ACR_REPOSITORY}:${BUILD_NUMBER}/g' deployment_svc.yaml"
+             sh "sed -i 's/helloworldapp:latest/helloworldapp:${BUILD_NUMBER}/g' deployment_svc.yaml"
              sh "kubectl apply -f deployment_svc.yaml "
 }
             
