@@ -19,6 +19,8 @@ spec:
         image: realproject.azurecr.io/helloworldapp:latest
         ports:
         - containerPort: 80
+      imagePullSecrets:
+      - name: acr-secret
 ---
 apiVersion: v1
 kind: Service
