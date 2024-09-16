@@ -29,9 +29,21 @@ stages {
             steps {
                withCredentials([usernamePassword(credentialsId: 'acr_key', passwordVariable: 'passwd-id', usernameVariable: 'user-id',url:'https://azurecr.io')]) {
       sh 'az acr login --name ${ACR_REGISTRY}'
-     sh 'docker push ${ACR_REGISTRY}/${ACR_REPOSITORY}:${BUILD_NUMBER}'
+      sh 'docker push ${ACR_REGISTRY}/${ACR_REPOSITORY}:${BUILD_NUMBER}'
 }
                }
         }
+ stage('Deployment_K8s') {
+            steps {
+            withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubeconfig_aks', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+             sh "sed -i 's/${ACR_REPOSITORY}:latest/${ACR_REPOSITORY}:${BUILD_NUMBER}/g' deployment_svc.yaml"
+             sh "kubectl apply -f deployment_svc.yaml "
+}
+            
+            }
+        }
+ 
+ 
+ 
  }
 }
